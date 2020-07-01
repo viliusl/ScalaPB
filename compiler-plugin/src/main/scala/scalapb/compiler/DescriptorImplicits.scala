@@ -72,7 +72,7 @@ class DescriptorImplicits(params: GeneratorParams, files: Seq[FileDescriptor]) {
           Some(descriptor.sealedOneofScalaType)
         else if (descriptor.messageOptions.hasType) Some(descriptor.messageOptions.getType)
         else if (descriptor.getFile.usePrimitiveWrappers)
-          DescriptorImplicits.primitiveWrapperType(descriptor)
+          DescriptorImplicits.primitiveWrapperType(descriptor).map(s => s"${ScalaOption}[$s]")
         else None
 
       def baseScalaType = descriptor.scalaType.fullNameWithMaybeRoot(Seq("build"))
